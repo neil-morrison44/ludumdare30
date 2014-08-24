@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>LudumDare 30</title>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+		<style>
+			body{
+				text-align: center;
+				background-color:rgb(200,200,200);
+			}
+			canvas{
+				border-color:black;
+				border-style:solid;
+				border-width:1px;
+				display:block;
+				margin-left:auto;
+				margin-right:auto;
+				-webkit-transition:-webkit-filter 0.5s, opacity 0.5s;
+				transition:-webkit-filter 0.5s, -moz-filter 0.5s, -ms-filter 0.5s, filter 0.5s, opacity 0.5s;
+			}
+			canvas.inactive{
+				-webkit-filter: grayscale(75%);
+				filter: grayscale(75%);
+				opacity: 0.75;
+			}
+
+			#gameWorldCanvas{
+
+			}
+			#realWorldCanvas{
+
+			}
+			#black{
+				margin-left:-251px;
+				position: absolute;
+				left:50%;
+				top:10px;
+				width:502px;
+				height:504px;
+			}
+		</style>
+		<script src="js/site.js" type="text/javascript"></script>
+		<script src="js/scenes/club.js" type="text/javascript"></script>
+		<script src="js/character/player.js" type="text/javascript"></script>
+		<script src="js/scenes/squalor.js" type="text/javascript"></script>
+		<script src="js/scenes/street.js" type="text/javascript"></script>
+	</head>
+	<body>
+		<canvas id="gameWorldCanvas" width="500" height="150">
+		</canvas>
+		<canvas id="realWorldCanvas" width="500" height="350">
+		</canvas>
+		<div id="black"></div>
+	</body>
+</html>
