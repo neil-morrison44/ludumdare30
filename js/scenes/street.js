@@ -5,6 +5,12 @@ site.scenes.street = function() {
 	var backGroundImage = new Image();
 	backGroundImage.src = 'assets/images/streetBackgroundStrip.png';
 
+	var appartmentImage = new Image();
+	appartmentImage.src = 'assets/images/appartment.png';
+
+	var internetCafeImage = new Image();
+	internetCafeImage.src = 'assets/images/internetCafe.png';
+
 	var lastX = 0;
 
 	var rainDrops = [];
@@ -58,9 +64,26 @@ site.scenes.street = function() {
 		context.restore();
 	}
 
+	var lastX = 0;
+
+	function changeToSqualor(){
+		//site.character.player
+		site.realChangeScene(site.scenes.squalor);
+	}
+
+	function setGameToStatic(){
+		site.gameChangeScene(site.scenes.static);
+	}
+
+	function changeToInternetCafe(){
+		site.realChangeScene(site.scenes.internetCafe);
+	}
+
 	return {
 		init: function() {
 			initRainDrops();
+
+			window.setTimeout(setGameToStatic,0);
 		},
 		render: function(context) {
 
@@ -72,10 +95,14 @@ site.scenes.street = function() {
 			}
 			var i = 0;
 			while (i < 26) {
-				context.drawImage(backGroundImage, i * 20, 0, backGroundImage.width, backGroundImage.height);
+				context.drawImage(backGroundImage, (i * 20) - (lastX%20), 0, backGroundImage.width, backGroundImage.height);
 
 				i++;
 			}
+			context.drawImage(appartmentImage, 0-lastX, -10, appartmentImage.width, appartmentImage.height);
+
+			context.drawImage(internetCafeImage, 600-lastX, 60, internetCafeImage.width, internetCafeImage.height);
+
 			site.character.player.renderReal(context);
 			renderRainDrops(context);
 		},
@@ -83,7 +110,19 @@ site.scenes.street = function() {
 			rainDrops = [];
 		},
 		yForX: function(x) {
+			lastX = x;
 			return 340;
+		},
+		spacePressed: function(atX){
+			if (atX > 53 && atX < 105){
+				//change to appartment
+				window.setTimeout(changeToSqualor, 0);
+			}
+
+			if (atX > 304 && atX < 335){
+				//change to internetCafe
+				window.setTimeout(changeToInternetCafe, 0);
+			}
 		}
 	}
 }();

@@ -38,11 +38,14 @@ var site = function() {
 			gameContext.clearRect(0,0,500,150);
 			currentGameScene.render(gameContext);
 			site.character.player.renderGame(gameContext);
+			site.text.display.renderGame(gameContext);
 		}
 		if (currentRealScene) {
 			realContext.clearRect(0,0,500,350);
 			currentRealScene.render(realContext);
 			//site.character.player.renderGame(gameContext);
+
+			site.text.display.renderReal(realContext);
 		}
 	}
 
@@ -53,7 +56,9 @@ var site = function() {
 			gameContext = $('#gameWorldCanvas')[0].getContext('2d');
 			realContext = $('#realWorldCanvas')[0].getContext('2d');
 			currentGameScene = site.scenes.club;
+			currentGameScene.init();
 			currentRealScene = site.scenes.squalor;
+			currentRealScene.init();
 			site.character.player.init();
 			$('#realWorldCanvas').addClass('inactive');
 			render();
@@ -81,6 +86,17 @@ var site = function() {
 			}else{
 				$('#gameWorldCanvas').removeClass('inactive');
 				$('#realWorldCanvas').addClass('inactive');
+
+				if (currentRealScene.switchActivated){
+					currentRealScene.switchActivated();
+				}
+			}
+		},
+		activeScene:function(){
+			if (isActiveReal){
+				return currentRealScene;
+			}else{
+				return currentGameScene;
 			}
 		}
 	}

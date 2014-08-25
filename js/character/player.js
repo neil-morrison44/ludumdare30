@@ -30,7 +30,7 @@ site.character.player = function() {
 	}
 
 	function handleKeyUp(event) {
-		console.log(event.keyCode);
+		//console.log(event.keyCode);
 		switch (event.keyCode) {
 			case 68:
 			case 39:
@@ -44,6 +44,17 @@ site.character.player = function() {
 				break;
 			case 83:
 				site.switchActive();
+				break;
+			case 32:
+				//space
+				if (site.activeScene().spacePressed){
+					if (site.isRealActive()){
+						site.activeScene().spacePressed(realX);
+					}else{
+						site.activeScene().spacePressed(gameX);
+					}
+					
+				}
 
 		}
 	}
@@ -110,8 +121,6 @@ site.character.player = function() {
 			window.addEventListener('keyup', handleKeyUp);
 		},
 		renderReal: function(context) {
-
-
 			context.save();
 			context.fillStyle = 'red';
 
@@ -184,11 +193,21 @@ site.character.player = function() {
 				y: gameY
 			};
 		},
+		setGame: function(x, y){
+			gameX = x;
+			gameY = y;
+		},
+		setReal: function(x, y){
+			realX = x;
+			realY = y;
+		},
 		deinit: function() {
 
 		},
 		update: function() {
 			update();
-		}
+		},
+		gotName:false,
+		gotUSB:false
 	}
 }();
